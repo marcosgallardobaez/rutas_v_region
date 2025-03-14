@@ -1,14 +1,14 @@
 import express from 'express';
+import {
+    formularioLogin,
+    formularioRegistro,
+    formularioOlvidePassword
+} from '../controllers/adminController.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Hola Papito');
-});
-
-router.get('/login', (req, res) => {
-    res.send('Ingresa a la plataforma');
-})
-
+router.get('/login', formularioLogin)
+router.get('/registro', formularioRegistro)
+router.get('/olvide-password', formularioOlvidePassword )
 
 export default router;
