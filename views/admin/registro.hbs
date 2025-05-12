@@ -11,7 +11,7 @@
     <div class="alert alert-danger">
         <ul>
             {{#each errores}}
-                <li>{{this}}</li>
+                <li>{{this.msg}}</li>
             {{/each}}
         </ul>
     </div>
@@ -19,6 +19,8 @@
 
 
     <form action="registro" method="post" class="form-registro">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre">
 

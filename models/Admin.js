@@ -27,6 +27,13 @@ const Admin = db.define('admin', {
             admin.password = await bcrypt.hash(admin.password, salt)
         }
     }
+
+
+
 });
+
+Admin.prototype.verificarPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+}
 
 export default Admin;

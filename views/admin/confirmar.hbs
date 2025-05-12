@@ -1,0 +1,24 @@
+<div class="card">
+    <h2 class="text-center">Confirmación de Cuenta</h2>
+
+    {{#if succes_msg}}
+        <div class="alert alert-succes">{{succes_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+        <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+
+    {{#if confirmado}}
+        <p class="text-center">Tu cuenta ha sido confirmada exitosamente. Ahora puedes iniciar sesión</p>
+        <div class="text-center mt-4">
+            <a href="/views/admin/login.hbs" class="btn btn-primary">Iniciar Sesión</a>
+        </div>
+    {{else}}
+         <p class="text-center">No se pudo confirmar tu cuenta. Por favor, intenta nuevamente o contacta a soporte.</p>
+        <div class="text-center mt-4">
+            <a href="/views/admin/registro.hbs" class="btn btn-secondary">Registrarse</a>
+        </div>
+    {{/if}}
+    
+</div>  

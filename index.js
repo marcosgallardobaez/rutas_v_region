@@ -4,6 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
 import flash from 'connect-flash';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 import adminRoutes from './routes/adminRoutes.js';
 import visitRoutes  from "./routes/visitRoutes.js";
 import db from './config/db.js';
@@ -39,6 +41,13 @@ app.use((req, res, next) => {
     next();
 });
 
+//habilitar cookieParser
+app.use(cookieParser());
+
+//habilitar CSRF
+app.use(csrf({cookie: true})); //configurado de forma global
+
+
 //conectar a la base de datos
 try {
     await db.authenticate();
@@ -64,7 +73,7 @@ app.use('/', visitRoutes)
 app.use('/admin', adminRoutes);
 
 //definir puerto e inicio de servidor
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`)
