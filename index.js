@@ -72,6 +72,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', visitRoutes)
 app.use('/admin', adminRoutes);
 
+//habilitar archivos estaticos
+app.use(express.static( 'public'));
+
 //definir puerto e inicio de servidor
 const port = process.env.PORT || 3000;
 

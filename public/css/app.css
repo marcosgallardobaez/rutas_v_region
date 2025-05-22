@@ -1,0 +1,70 @@
+/* CSS HEX 
+--mallard: #243e1e;
+--golden-tainoi: #ffc85f;
+--kournikova: #ffe979;
+--dolly: #fff786;
+--winter-hazel: #d8cf92;
+--parsley: #2d541b;
+--hippie-green: #60874e;
+--xanadu: #727c74;
+--periglacial-blue: #d2dfc9;
+--pumice: #b2bcb4;
+*/
+
+
+
+
+.navbar-css {
+    background-color:#2d541b;
+
+}
+
+.link-css {
+    color: white;
+    
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90vh;
+    gap: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+input, select {
+    width: 95%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #fff786;
+    color: ;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffc85f;
+}

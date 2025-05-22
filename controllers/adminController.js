@@ -255,7 +255,8 @@ const comprobarToken = async (req, res) => {
     //mostrar formulario para restablecer la contraseña
     res.render('admin/reset-password', {
         pagina: 'Restablecer Contraseña',
-        csrfToken: req.csrfToken()
+        csrfToken: req.csrfToken(),
+        token
     });
 }
 
@@ -294,9 +295,9 @@ const nuevoPassword = async (req, res) => {
     await admin.save();
 
     //renderizar páina de confirmación
-    res.render('admin/login', {
-        success_msg: 'La contraseña se ha restablecido correctamente. Ahora puedes iniciar sesión'
-    })
+    req.flash('success_msg', 'La contraseña se ha restablecido correctamente. Ahora puedes iniciar sesión');
+    res.redirect('/admin/login');
+    
 }
 
 
@@ -309,5 +310,7 @@ export {
     registrar,
     confirmarRegistro,
     formularioOlvidePassword,
-    resetPassword
+    resetPassword,
+    nuevoPassword,
+    comprobarToken
 }
