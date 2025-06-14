@@ -1,0 +1,31 @@
+
+<h2 class="text-center">Rutas Vigentes</h2>
+
+<!-- Botón para agregar una nueva ruta -->
+<div class="text-center">
+    <a href="/caminatas/crear" class="btn btn-primary">+ Crear Nueva Ruta</a>
+</div>
+
+<!-- Tabla para mostrar las rutas -->
+{{#if rutas.length}}
+    <div class="rutas-lista">
+        {{#each rutas}}
+            <div class="ruta-card">
+                <h3>{{this.titulo}}</h3>
+                <p><strong>Ubicación:</strong>{{this.ubicacion}}</p>
+                <p><strong>Fecha:</strong>{{this.fecha}}</p>
+                <p><strong>Descripción:</strong>{{this.descripcion}}</p>
+
+                <!-- Botones de acción -->
+                <div class="acciones">
+                    <a href="/caminatas/editar/{{this.id}}" class="btn btn-warning">Editar</a>
+                    <form action="/caminatas/eliminar/{{this.id}}" method="post" class="inline-form">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <p class="text-center">No tienes propiedades aún</p>
+{{/if}}

@@ -8,7 +8,9 @@ import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 import adminRoutes from './routes/adminRoutes.js';
 import visitRoutes  from "./routes/visitRoutes.js";
+import caminataRoutes from './routes/caminataRoutes.js';
 import db from './config/db.js';
+import { setAuthLocals } from './middlewares/authMiddleware.js';
 
 //configurar __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +30,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
+//configuracion de middlewares globales
+app.use(setAuthLocals)
 
 
 //configuracion flash mensajes
@@ -71,6 +76,7 @@ app.set('views', path.join(__dirname, 'views'));
 //rutas
 app.use('/', visitRoutes)
 app.use('/admin', adminRoutes);
+app.use('/caminatas', caminataRoutes)
 
 //habilitar archivos estaticos
 app.use(express.static( 'public'));

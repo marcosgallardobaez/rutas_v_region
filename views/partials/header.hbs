@@ -1,4 +1,20 @@
 <header>
+{{#if isAuth}}
+<div class="container-header">
+  <h1 class="logo">Panel de Administracion</h1>
+
+  <nav class="nav-admin">
+    <ul>
+      <li><a href="/mis-rutas"></a>Rutas Vigentes</li>
+      <li><a href="/mis-rutas"></a>Mi Perfil</li>
+      <li><a href="admin/login" class="logout-btn"></a>Cerrar Sesión</li>
+    </ul>
+  </nav>
+
+</div>
+
+
+{{else}}
   <nav class="navbar navbar-expand-lg navbar-css">
     <div class="container-fluid">
       <a class="navbar-brand link-css" href="/">Rutas V Región</a>
@@ -30,4 +46,5 @@
       </div>
     </div>
   </nav>
+  {{/if}}
 </header>

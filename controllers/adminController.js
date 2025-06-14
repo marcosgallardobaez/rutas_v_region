@@ -1,7 +1,7 @@
 import Admin from "../models/Admin.js";
 import { check, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
-import { generarId } from "../helpers/token.js";
+import { generarId, generarJWT } from "../helpers/token.js";
 import { emailRegistro, emailOlvidePassword } from "../helpers/email.js";
 
 const formularioLogin = (req, res) => {
@@ -12,7 +12,7 @@ const formularioLogin = (req, res) => {
         errores: [],
         datos: {}
     })
-}
+};
 
 const autenticar = async (req, res) => {
     console.log('Autenticando...')
@@ -61,10 +61,28 @@ const resultado = validationResult(req);
         });
     }
 
-    //si todo es correcto, redirigir al dashboard o sesión exitosa
-    return res.render('admin/dashboard');
+     //generar jwt para autenticar al admin
+     const token = generarJWT({id: admin.id, nombre: admin.nombre});
 
-}
+     console.log('JWT generado:', token);
+
+    //si todo es correcto, redirigir al dashboard o sesión exitosa
+    // return res.render('admin/dashboard');
+
+    //confirmar autenticación para activar middleware
+    req.session.isAuth = true;
+    req.session.admin = {
+        id: admin.id,
+        nombre: admin.nombre,
+        email: admin.email
+    };
+
+    return res.cookie('_token',token, {
+        httpOnly: true,
+    }).redirect('/caminatas/caminatas')
+   
+
+};
 
 const formularioRegistro = (req, res) => {
     const csrfToken = req.csrfToken();
@@ -258,7 +276,7 @@ const comprobarToken = async (req, res) => {
         csrfToken: req.csrfToken(),
         token
     });
-}
+};
 
 const nuevoPassword = async (req, res) => {
     console.log('Guardando nuevo password...')
@@ -298,7 +316,7 @@ const nuevoPassword = async (req, res) => {
     req.flash('success_msg', 'La contraseña se ha restablecido correctamente. Ahora puedes iniciar sesión');
     res.redirect('/admin/login');
     
-}
+};
 
 
 
@@ -313,4 +331,4 @@ export {
     resetPassword,
     nuevoPassword,
     comprobarToken
-}
+};
