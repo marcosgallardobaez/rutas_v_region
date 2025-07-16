@@ -1,0 +1,76 @@
+<!-- Estilos específicos de Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.css">
+
+
+<div class="form-container">
+    <h2 class="titulo">Crear Nueva Ruta</h2>
+
+
+    <div class="form-container">
+
+        <form action="/caminatas/guardar" method="post" class="formulario">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+            <div class="section">
+                <h3>Información General</h3>
+                <p>Añade Información sobre la ruta</p>
+
+                <!-- Título de la ruta -->
+                <label for="titulo">Título de la ruta</label>
+                <input type="text" id="titulo" placeholder="Ej. Ruta Palmar El Salto" value="{{datos.titulo}}">
+
+                <!-- Descripción de la ruta -->
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" id="descripcion"
+                    placeholder="Descripción de la ruta">{{datos.descripcion}}</textarea>
+
+                <!-- fecha de la ruta -->
+                <label for="fecha">Fecha</label>
+                <input type="date" name="fecha" id="fecha" value="{{datos.fecha}}">
+
+                <!-- hora de la ruta -->
+                <label for="horaInicio">Hora de inicio</label>
+                <input type="time" name="horaInicio" id="horaIncio" value="{{datos.horaInicio}}">
+
+                <label for="horaTermino">Hora de termino</label>
+                <input type="time" name="horaTermino" id="horaTermino" value="{{datos.horaTermino}}">
+            </div>
+
+            <div class="section">
+                <h3>Lugar de inicio</h3>
+                <p>Ubica el punto de inicio en el mapa</p>
+                <div id="mapa"></div>
+
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Ejemplar 123"
+                    value="{{datos.direccion}}">
+
+                <label for="ciudad">Ciudad</label>
+                <input type="text" id="ciudad" name="ciudad" placeholder="Ej. Viña del Mar" value="{{datos.ciudad}}">
+
+                <label for="pais">País</label>
+                <input type="text" id="pais" name="pais" placeholder="Ej. Chile" value="{{datos.pais}}">
+
+                <label for="codigo_postal">Código Postal</label>
+                <input type="text" id="codigo_postal" name="codigo_postal" placeholder="Ej. 123456"
+                    value="{{datos.codigo_postal}}">
+
+                <label for="lat">Latitud</label>
+                <input type="text" id="lat" name="lat" value="{{datos.lat}}">
+
+                <label for="lng">Latitud</label>
+                <input type="text" id="lng" name="lng" value="{{datos.lng}}">
+
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js"></script>
+<script src="/js/mapa.js"></script>

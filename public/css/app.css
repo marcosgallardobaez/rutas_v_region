@@ -68,3 +68,9 @@ button {
 button:hover {
     background-color: #ffc85f;
 }
+
+#mapa {
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+}

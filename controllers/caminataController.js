@@ -4,6 +4,14 @@ const panel = (req, res) => {
     });
 }
 
+const crear = (req, res) => {
+    res.render('caminatas/crear', {
+        pagina: 'Crear CAminata',
+        ocultarBarra: true
+    });
+}
+
 export {
-    panel
+    panel,
+    crear
 }

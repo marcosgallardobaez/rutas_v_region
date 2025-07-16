@@ -51,8 +51,17 @@ const resultado = validationResult(req);
     }
 
     //verificar si la cuenta es correcta
-    const esPasswordCorrecto = admin.verificarPassword(password);
-
+    const esPasswordCorrecto = await admin.verificarPassword(password);
+    console.log('¿La contraseña es correcta?', esPasswordCorrecto)
+    
+    //si la contraseña no es correcta, mostrar mensaje de error
+    if(!esPasswordCorrecto) {
+        return res.render('admin/login', {
+            csrfToken: req.csrfToken(),
+            errores: [{ msg: 'La contraseña es incorrecta'}]
+        });
+    }
+    
     //comprobar si el admin está confirmado
     if(!admin.confirmado) {
         return res.render('admin/login', {
