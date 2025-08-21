@@ -26,8 +26,15 @@ const Admin = db.define('admin', {
             const salt = await bcrypt.genSalt(10)
             admin.password = await bcrypt.hash(admin.password, salt)
         }
-    }
+    },
 
+    scopes: {
+        eliminarPassword: {
+            attributes: {
+                exclude: ['password', 'token', 'confirmado', 'createdAt', 'updatedAt']
+            }
+        }
+    }
 
 
 });

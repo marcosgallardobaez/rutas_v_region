@@ -3,13 +3,24 @@
 <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.css">
 
 
+{{!-- Mensajes de error --}}
+{{#if errores}}
+<div class="alert alert-danger">
+    <ul>
+        {{#each errores}}
+        <li>{{this.msg}}</li>
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
 <div class="form-container">
     <h2 class="titulo">Crear Nueva Ruta</h2>
 
 
     <div class="form-container">
 
-        <form action="/caminatas/guardar" method="post" class="formulario">
+        <form action="/caminatas/crear" method="post" class="formulario">
             <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
             <div class="section">
@@ -18,12 +29,31 @@
 
                 <!-- Título de la ruta -->
                 <label for="titulo">Título de la ruta</label>
-                <input type="text" id="titulo" placeholder="Ej. Ruta Palmar El Salto" value="{{datos.titulo}}">
+                <input type="text" id="titulo" name="titulo" placeholder="Ej. Ruta Palmar El Salto al atardecer"
+                    value="{{datos.titulo}}">
 
                 <!-- Descripción de la ruta -->
                 <label for="descripcion">Descripción</label>
                 <textarea name="descripcion" id="descripcion"
                     placeholder="Descripción de la ruta">{{datos.descripcion}}</textarea>
+
+                <!-- Tipo de ruta -->
+                <label for="tipo">Tipo</label>
+                <select name="tipo" id="tipo">
+                    <option value="">-Seleccione tipo de ruta-</option>
+                    {{#each tipos}}
+                    <option value="{{this.id}}">{{this.nombre}}</option>
+                    {{/each}}
+                </select>
+
+                <!-- Dificultad de la ruta-->
+                <label for="dificultad">Dificultad</label>
+                <select name="dificultad" id="dificultad">
+                    <option value="">-Seleccione dificultad-</option>
+                    {{#each dificultades}}
+                    <option value="{{this.id}}">{{this.nombre}}</option>
+                    {{/each}}
+                </select>
 
                 <!-- fecha de la ruta -->
                 <label for="fecha">Fecha</label>
@@ -38,31 +68,64 @@
             </div>
 
             <div class="section">
-                <h3>Lugar de inicio</h3>
+                <h3>Ubicación</h3>
+                <p>Escoge una ubicación ya registrada o crea una nueva</p>
+                <!-- Seleccionar ubicación existente-->
+                <label for="ubicacionId">Ubicación existente</label>
+                <select name="ubicacionId" id="ubicacionId">
+                    <option value="">--Seleccione una ubicación--</option>
+                    {{#each ubicaciones}}
+                    <option value="{{this.id}}"
+                        data-nombre="{{this.nombre}}"
+                        data-direccion="{{this.direccion}}"
+                        data-comuna="{{this.comuna}}"
+                        data-provincia="{{this.provincia}}"
+                        data-region="{{this.region}}"
+                        data-pais="{{this.pais}}"
+                        data-lat="{{this.lat}}"
+                        data-lng="{{this.lng}}"
+                        >
+                        
+                        {{this.nombre}}
+                    </option>
+                    {{/each}}
+                </select>
+
+                <hr>
+
                 <p>Ubica el punto de inicio en el mapa</p>
                 <div id="mapa"></div>
+
+                <label for="nombre">Nombre de ruta</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej. Quebrada el Quiteño"
+                    value="{{datos.nombre}}">
 
                 <label for="direccion">Dirección</label>
                 <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Ejemplar 123"
                     value="{{datos.direccion}}">
 
-                <label for="ciudad">Ciudad</label>
-                <input type="text" id="ciudad" name="ciudad" placeholder="Ej. Viña del Mar" value="{{datos.ciudad}}">
+                <label for="comuna">Comuna</label>
+                <input type="text" id="comuna" name="comuna" placeholder="Ej. Quilpué" value="{{datos.comuna}}">
+
+                <label for="provincia">Provincia</label>
+                <input type="text" id="provincia" name="provincia" placeholder="Ej. Marga-marga"
+                    value="{{datos.provincia}}">
+
+                <label for="region">Región</label>
+                <input type="text" id="region" name="region" placeholder="Ej. Valparaíso" value="{{datos.region}}">
 
                 <label for="pais">País</label>
                 <input type="text" id="pais" name="pais" placeholder="Ej. Chile" value="{{datos.pais}}">
 
-                <label for="codigo_postal">Código Postal</label>
-                <input type="text" id="codigo_postal" name="codigo_postal" placeholder="Ej. 123456"
-                    value="{{datos.codigo_postal}}">
-
                 <label for="lat">Latitud</label>
                 <input type="text" id="lat" name="lat" value="{{datos.lat}}">
 
-                <label for="lng">Latitud</label>
+                <label for="lng">Longitud</label>
                 <input type="text" id="lng" name="lng" value="{{datos.lng}}">
 
             </div>
+
+            <button type="submit">Publicar Ruta</button>
         </form>
 
     </div>
@@ -73,4 +136,5 @@
 <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"></script>
 <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js"></script>
-<script src="/js/mapa.js"></script>
+<script src="../js/mapa.js"></script>
+<script src="../js/app.js"></script>
