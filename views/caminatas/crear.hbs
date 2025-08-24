@@ -14,123 +14,159 @@
 </div>
 {{/if}}
 
+
+<h2 class="titulo">Crear Nueva Ruta</h2>
+
+
 <div class="form-container">
-    <h2 class="titulo">Crear Nueva Ruta</h2>
+
+    <form action="/caminatas/crear" method="post" class="formulario">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+        <div class="section">
+            <h3>Información General</h3>
+            <p>Añade Información sobre la ruta</p>
+
+            <!-- Título de la ruta -->
+            <label for="titulo">Título de la ruta</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Ej. Ruta Palmar El Salto al atardecer"
+                value="{{datos.titulo}}">
+
+            <!-- Descripción de la ruta -->
+            <label for="descripcion">Descripción</label> <br>
+            <textarea name="descripcion" id="descripcion" cols="20" rows="8"
+                placeholder="Descripción de la ruta">{{datos.descripcion}}</textarea>
+            <br>
+            <!-- Tipo de ruta -->
+            <label for="tipo">Tipo</label>
+            <select name="tipo" id="tipo">
+                <option value="">-Seleccione tipo de ruta-</option>
+                {{#each tipos}}
+                <option value="{{this.id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+
+            <!-- Dificultad de la ruta-->
+            <label for="dificultad">Dificultad</label>
+            <select name="dificultad" id="dificultad">
+                <option value="">-Seleccione dificultad-</option>
+                {{#each dificultades}}
+                <option value="{{this.id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
 
 
-    <div class="form-container">
-
-        <form action="/caminatas/crear" method="post" class="formulario">
-            <input type="hidden" name="_csrf" value="{{csrfToken}}">
-
-            <div class="section">
-                <h3>Información General</h3>
-                <p>Añade Información sobre la ruta</p>
-
-                <!-- Título de la ruta -->
-                <label for="titulo">Título de la ruta</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Ej. Ruta Palmar El Salto al atardecer"
-                    value="{{datos.titulo}}">
-
-                <!-- Descripción de la ruta -->
-                <label for="descripcion">Descripción</label>
-                <textarea name="descripcion" id="descripcion"
-                    placeholder="Descripción de la ruta">{{datos.descripcion}}</textarea>
-
-                <!-- Tipo de ruta -->
-                <label for="tipo">Tipo</label>
-                <select name="tipo" id="tipo">
-                    <option value="">-Seleccione tipo de ruta-</option>
-                    {{#each tipos}}
-                    <option value="{{this.id}}">{{this.nombre}}</option>
-                    {{/each}}
-                </select>
-
-                <!-- Dificultad de la ruta-->
-                <label for="dificultad">Dificultad</label>
-                <select name="dificultad" id="dificultad">
-                    <option value="">-Seleccione dificultad-</option>
-                    {{#each dificultades}}
-                    <option value="{{this.id}}">{{this.nombre}}</option>
-                    {{/each}}
-                </select>
-
+            <div class="time-container">
                 <!-- fecha de la ruta -->
-                <label for="fecha">Fecha</label>
-                <input type="date" name="fecha" id="fecha" value="{{datos.fecha}}">
+                <div class="time">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" name="fecha" id="fecha" value="{{datos.fecha}}">
+                </div>
 
                 <!-- hora de la ruta -->
-                <label for="horaInicio">Hora de inicio</label>
-                <input type="time" name="horaInicio" id="horaIncio" value="{{datos.horaInicio}}">
+                <div class="time">
+                    <label for="horaInicio">Hora de inicio</label>
+                    <input type="time" name="horaInicio" id="horaIncio" value="{{datos.horaInicio}}">
+                </div>
 
-                <label for="horaTermino">Hora de termino</label>
-                <input type="time" name="horaTermino" id="horaTermino" value="{{datos.horaTermino}}">
+                <div class="time">
+                    <label for="horaTermino">Hora de termino</label>
+                    <input type="time" name="horaTermino" id="horaTermino" value="{{datos.horaTermino}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="number-container">
+            <div class="number">
+                <label for="cupos">Cupos</label>
+                <input type="number" id="cupos" pattern="\d+" name="cupos" value="{{datos.cupos}}">
+            </div>
+            <div class="number">
+                <label for="precio">Precio</label>
+                <div style="display: flex; align-items: center;">
+                    <span style="margin-right: 5px;">$</span>
+                    <input type="number" id="precio" pattern="\d+" name="precio" value="{{datos.precio}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Ubicación</h3>
+            <p>Escoge una ubicación ya registrada o crea una nueva</p>
+            <!-- Seleccionar ubicación existente-->
+            <label for="ubicacionId">Ubicación existente</label>
+            <select name="ubicacionId" id="ubicacionId">
+                <option value="">--Seleccione una ubicación--</option>
+                {{#each ubicaciones}}
+                <option value="{{this.id}}" data-nombre="{{this.nombre}}" data-direccion="{{this.direccion}}"
+                    data-comuna="{{this.comuna}}" data-provincia="{{this.provincia}}" data-region="{{this.region}}"
+                    data-pais="{{this.pais}}" data-lat="{{this.lat}}" data-lng="{{this.lng}}">
+
+                    {{this.nombre}}
+                </option>
+                {{/each}}
+            </select>
+
+            <hr>
+
+            <p>Ubica el punto de inicio en el mapa</p>
+            <div id="mapa"></div>
+
+            <label for="nombre">Nombre de ruta</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej. Quebrada el Quiteño" value="{{datos.nombre}}">
+
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Ejemplar 123"
+                value="{{datos.direccion}}">
+
+            <div class="ubicacion-container">
+                <div class="ubicacion">
+                    <label for="comuna">Comuna</label>
+                    <input type="text" id="comuna" name="comuna" placeholder="Ej. Quilpué" value="{{datos.comuna}}">
+                </div>
+
+                <div class="ubicacion">
+                    <label for="provincia">Provincia</label>
+                    <input type="text" id="provincia" name="provincia" placeholder="Ej. Marga-marga" value="{{datos.provincia}}">
+                </div>
             </div>
 
-            <div class="section">
-                <h3>Ubicación</h3>
-                <p>Escoge una ubicación ya registrada o crea una nueva</p>
-                <!-- Seleccionar ubicación existente-->
-                <label for="ubicacionId">Ubicación existente</label>
-                <select name="ubicacionId" id="ubicacionId">
-                    <option value="">--Seleccione una ubicación--</option>
-                    {{#each ubicaciones}}
-                    <option value="{{this.id}}"
-                        data-nombre="{{this.nombre}}"
-                        data-direccion="{{this.direccion}}"
-                        data-comuna="{{this.comuna}}"
-                        data-provincia="{{this.provincia}}"
-                        data-region="{{this.region}}"
-                        data-pais="{{this.pais}}"
-                        data-lat="{{this.lat}}"
-                        data-lng="{{this.lng}}"
-                        >
-                        
-                        {{this.nombre}}
-                    </option>
-                    {{/each}}
-                </select>
+            <div class="ubicacion-container">
+                <div class="ubicacion">
+                    <label for="region">Región</label>
+                    <input type="text" id="region" name="region" placeholder="Ej. Valparaíso" value="{{datos.region}}">
+                </div>
 
-                <hr>
-
-                <p>Ubica el punto de inicio en el mapa</p>
-                <div id="mapa"></div>
-
-                <label for="nombre">Nombre de ruta</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ej. Quebrada el Quiteño"
-                    value="{{datos.nombre}}">
-
-                <label for="direccion">Dirección</label>
-                <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Ejemplar 123"
-                    value="{{datos.direccion}}">
-
-                <label for="comuna">Comuna</label>
-                <input type="text" id="comuna" name="comuna" placeholder="Ej. Quilpué" value="{{datos.comuna}}">
-
-                <label for="provincia">Provincia</label>
-                <input type="text" id="provincia" name="provincia" placeholder="Ej. Marga-marga"
-                    value="{{datos.provincia}}">
-
-                <label for="region">Región</label>
-                <input type="text" id="region" name="region" placeholder="Ej. Valparaíso" value="{{datos.region}}">
-
-                <label for="pais">País</label>
-                <input type="text" id="pais" name="pais" placeholder="Ej. Chile" value="{{datos.pais}}">
-
-                <label for="lat">Latitud</label>
-                <input type="text" id="lat" name="lat" value="{{datos.lat}}">
-
-                <label for="lng">Longitud</label>
-                <input type="text" id="lng" name="lng" value="{{datos.lng}}">
+                <div class="ubicacion">
+                    <label for="pais">País</label>
+                    <input type="text" id="pais" name="pais" placeholder="Ej. Chile" value="{{datos.pais}}">
+                </div>
 
             </div>
 
-            <button type="submit">Publicar Ruta</button>
-        </form>
 
-    </div>
+            <div class="coord-container">
+
+                <div class="coord">
+                    <label for="lat">Latitud</label>
+                    <input type="text" id="lat" name="lat" value="{{datos.lat}}">
+                </div>
+
+                <div class="coord">
+                    <label for="lng">Longitud</label>
+                    <input type="text" id="lng" name="lng" value="{{datos.lng}}">
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit">Publicar Ruta</button>
+    </form>
 
 </div>
+
+
 
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
 <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"></script>

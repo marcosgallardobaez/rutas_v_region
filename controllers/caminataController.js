@@ -39,7 +39,7 @@ const crear = async (req, res) => {
 const guardar = async (req, res) => {
     const csrfToken = req.csrfToken();
 
-    const { titulo, descripcion, tipo, dificultad, fecha, horaInicio, horaTermino, ubicacionId,
+    const { titulo, descripcion, tipo, dificultad, fecha, horaInicio, horaTermino, cupos, precio, ubicacionId,
         //campos de ubicacion
         nombre, direccion, comuna, provincia, region, pais, lat, lng
      } = req.body;
@@ -99,6 +99,8 @@ const guardar = async (req, res) => {
             fecha,
             horaInicio,
             horaTermino,
+            cupos,
+            precio,
             ubicacionId: ubicacionIdFinal,
             adminId,
             imagen: '',

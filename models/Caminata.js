@@ -28,6 +28,14 @@ const Caminata = db.define('caminatas', {
         type: DataTypes.TIME,
         allowNull: false   
     },
+    cupos: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    precio: {
+        type: DataTypes.INTEGER,
+        allowNull: false  
+    },
     imagen: {
         type: DataTypes.STRING(200),
         allowNull: false

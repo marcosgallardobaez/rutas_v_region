@@ -1,17 +1,36 @@
 <header>
 {{#if isAuth}}
-<div class="container-header">
-  <h1 class="logo">Panel de Administracion</h1>
-
-  <nav class="nav-admin">
-    <ul>
-      <li><a href="/mis-rutas">Rutas Vigentes</a></li>
-      <li><a href="/mis-rutas">Mi Perfil</a></li>
-      <li><a href="admin/login" class="logout-btn">Cerrar Sesión</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-css">
+    <div class="container-fluid">
+      <a class="navbar-brand link-css" href="/">Rutas V Región</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link link-css" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-css" href="caminatas">Rutas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-css" href="guias">Guías</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle link-css" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Administrador
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="mi-perfil">Mi Perfil</a></li>
+              <li><a class="dropdown-item" href="admin/login">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
-
-</div>
 
 
 {{else}}

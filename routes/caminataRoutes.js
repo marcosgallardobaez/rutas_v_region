@@ -20,6 +20,8 @@ router.post('/crear', protegerRuta,
     body('fecha').notEmpty().withMessage('La fecha de la caminata es obligatoria'),
     body('horaInicio').notEmpty().withMessage('La hora de inicio es obligatoria'),
     body('horaTermino').notEmpty().withMessage('La hora de fin es obligatoria'),
+    body('cupos').notEmpty().withMessage('Los cupos de la caminata son obligatorios'),
+    body('precio').notEmpty().withMessage('El precio de la caminata es obligatorio'),
     body('nombre').notEmpty().withMessage('El nombre de la ubicación es obligatorio'),
     body('direccion').notEmpty().withMessage('La dirección de la caminata es obligatoria'),
     body('comuna').notEmpty().withMessage('La comuna de la caminata es obligatoria'),
@@ -27,6 +29,7 @@ router.post('/crear', protegerRuta,
     body('region').notEmpty().withMessage('La región de la caminata es obligatoria'),
     body('pais').notEmpty().withMessage('El país de la caminata es obligatorio'),
     body('lat').notEmpty().withMessage('La latitud de la caminata es    obligatoria'),
+    body('lng').notEmpty().withMessage('La longitud de la caminata es obligatoria'),
     
     guardar)
 
